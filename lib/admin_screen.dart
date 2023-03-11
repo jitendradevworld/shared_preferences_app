@@ -1,18 +1,17 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_app/login_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class AdminScreen extends StatefulWidget {
+  const AdminScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<AdminScreen> createState() => _AdminScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _AdminScreenState extends State<AdminScreen> {
   String email = "";
+  String type = "";
   @override
   void initState() {
     super.initState();
@@ -22,15 +21,17 @@ class _HomeScreenState extends State<HomeScreen> {
   loadData() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     email = sp.getString("email") ?? "";
+    type = sp.getString("userType") ?? "";
     setState(() {});
     print("email =$email");
+    print("type =$type");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home Screen"),
+        title: Text("Admin Screen"),
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -39,15 +40,25 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Home Screen"),
+            Text("Admin Screen"),
             SizedBox(
               height: 20,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("email:"),
                 Text(email.toString()),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("type:"),
+                Text(type.toString()),
               ],
             ),
             SizedBox(
